@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Desmos for SAT — Interactive Guide + Calculator</title>
+<meta name="description" content="Master Desmos for Digital SAT Math: real calculator, question types, 30 tricks, full exercise. Companion to desmos-sat-guide." />
+<style>
+:root{--bg:#0b1020;--card:#141b33;--line:#253056;--text:#e8ecf8;--muted:#9aa6c7;--acc:#5b8cff;--acc2:#34d399;--warn:#fbbf24}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text)}
+a{color:var(--acc)}header{position:sticky;top:0;background:rgba(11,16,32,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:10}
+.wrap{max-width:1100px;margin:0 auto;padding:0 18px}.nav{display:flex;gap:14px;align-items:center;padding:14px 0;flex-wrap:wrap}
+.nav b{font-size:18px}.nav a.btn,.btn{background:var(--acc);color:#fff;border:0;border-radius:10px;padding:10px 14px;cursor:pointer;text-decoration:none;font-weight:600;display:inline-block}
+.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--text)}.btn.small{padding:7px 10px;font-size:13px}
+.hero{padding:34px 0 10px}.hero h1{font-size:clamp(28px,4vw,44px);margin:8px 0}.hero p{color:var(--muted);max-width:760px}
+.grid{display:grid;gap:14px}.cols2{grid-template-columns:1fr 1fr}.cols3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:860px){.cols2,.cols3{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
+.card h3{margin:0 0 8px}.muted{color:var(--muted)}.pill{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:12px;color:var(--muted);margin:2px 4px 2px 0}
+section{padding:22px 0}h2{font-size:24px;margin:6px 0 12px}code,kbd{background:#0e1430;border:1px solid var(--line);border-radius:6px;padding:2px 6px;font-size:13px}
+#calc{width:100%;height:520px;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#fff}
+.preset{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}input,select{background:#0e1430;border:1px solid var(--line);color:var(--text);border-radius:8px;padding:9px 10px;width:100%}
+.q{border:1px solid var(--line);border-radius:12px;padding:14px;margin:10px 0;background:#101736}
+.q.correct{border-color:var(--acc2)}.q.wrong{border-color:#f87171}.timer{font-variant-numeric:tabular-nums;font-weight:700}
+footer{padding:26px 0;color:var(--muted);border-top:1px solid var(--line);margin-top:20px}
+.copy{cursor:pointer}
+</style>
+</head>
+<body>
+<header><div class="wrap nav">
+<b>📐 Desmos for SAT</b>
+<a href="#calculator">Calculator</a><a href="#types">Question types</a><a href="#tricks">Tricks</a><a href="#exercise">Full exercise</a><a href="#guide">Guide</a>
+<span style="flex:1"></span>
+<a class="btn small" href="https://github.com/Flynntaggart26/desmos-sat-guide" target="_blank" rel="noopener">★ GitHub repo</a>
+<a class="btn small ghost" href="https://github.com/Flynntaggart26/sat-study-tutor" target="_blank" rel="noopener">SAT Tutor</a>
+</div></header>
+
+<div class="wrap">
+<div class="hero">
+<span class="pill">Digital SAT Math</span><span class="pill">Bluebook built-in</span><span class="pill">Real Desmos below</span>
+<h1>Graph your way to 750+ Math.</h1>
+<p>30% of SAT Math is faster graphed than solved. Type the exact inputs, click the answer, verify. Use the <b>real Desmos calculator</b> below — presets load each question type in one click. Then do the 6-question full exercise timed.</p>
+<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
+<a class="btn" href="#calculator">Open calculator</a>
+<a class="btn ghost" href="#exercise">Start full exercise (12 min)</a>
+</div>
+</div>
+
+<section id="calculator">
+<h2>1. Real Desmos calculator</h2>
+<p class="muted">Powered by Desmos API (same engine as Bluebook). If it fails to load, <a href="https://www.desmos.com/calculator" target="_blank" rel="noopener">open desmos.com</a> — presets list the exact text to type.</p>
+<div class="preset" id="presets"></div>
+<div id="calc"></div>
+<p class="muted" id="calc-status">Loading Desmos…</p>
+<div class="card"><b>How to read answers:</b> systems → click black intersection dot. Quadratics → x-intercepts = roots, top/bottom = vertex (hover). Circle → center + radius. Inequality → shaded side + test (0,0). <code>+/−</code> zoom, wrench → square grid for circles.</div>
+</section>
+
+<section id="types">
+<h2>2. Question types where Desmos wins</h2>
+<div class="grid cols2" id="type-grid"></div>
+</section>
+
+<section id="tricks">
+<h2>3. Tricks — 10 must-know</h2>
+<div class="grid cols3" id="trick-grid"></div>
+<p class="muted">Full 30 with traps: <a href="https://github.com/Flynntaggart26/desmos-sat-guide/blob/main/cheatsheets/1-page.md" target="_blank" rel="noopener">1-page cheatsheet</a> • JSON: <a href="https://github.com/Flynntaggart26/desmos-sat-guide/blob/main/data/tricks.json" target="_blank" rel="noopener">tricks.json</a></p>
+</section>
+
+<section id="exercise">
+<h2>4. Full exercise — 6 Qs, 12 min, SAT-style</h2>
+<div class="card" style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+<span>⏱ <span class="timer" id="timer">12:00</span></span>
+<button class="btn small" id="start-timer">Start</button>
+<button class="btn small ghost" id="reset-ex">Reset</button>
+<button class="btn small" id="check-ex">Check answers</button>
+<span class="muted" id="score"></span>
+</div>
+<div id="ex-list"></div>
+<div class="card"><b>Solutions use Desmos:</b> <span class="muted">click “Show Desmos steps” per Q — it loads the graph above and scrolls to calculator.</span></div>
+</section>
+
+<section id="guide">
+<h2>5. Full guide (condensed)</h2>
+<div class="grid cols3">
+<div class="card"><h3>60-second rule</h3><p class="muted">Algebra &gt;60s → graph. Desmos &gt;60s (one-step) → hand. Systems, quadratics, equivalents, circles → Desmos first.</p></div>
+<div class="card"><h3>7-day speed plan</h3><p class="muted">D1 lines, D2 systems, D3 quadratics, D4 tables, D5 inequalities+circles, D6 mixed timed, D7 self-test. 10 min/day.</p></div>
+<div class="card"><h3>Test day</h3><p class="muted">Bluebook updated, charger, paper backup. Slow first 10 Qs (adaptive M1 decides M2). Guess + flag &gt;90s RW / &gt;2 min Math.</p></div>
+</div>
+<p class="muted">Full text: <a href="https://github.com/Flynntaggart26/desmos-sat-guide" target="_blank" rel="noopener">desmos-sat-guide repo</a> — guides/, examples/01-10, practice/drills.md</p>
+</section>
+
+<footer>MIT • Desmos © Desmos/College Board • Original tutorials only • Part of <a href="https://github.com/Flynntaggart26/sat-study-tutor">sat-study-tutor</a></footer>
+</div>
+
+<script src="https://www.desmos.com/api/v1.10/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
+<script>
+let calc=null;
+const $=s=>document.querySelector(s);
+const TYPES=[
+{t:"Systems (4 Qs/test)",ex:"y1=-2x+7 | y2=x+1",why:"Click intersection = (2,3). Faster than substitution 80% of time.",ids:[{id:"l1",latex:"y=-2x+7"},{id:"l2",latex:"y=x+1"}],steps:"Type y1, y2 → click black dot → x=2, y=3. Trap: they ask x vs 2x — read ask."},
+{t:"Quadratics: roots",ex:"y=x^2-5x+6",why:"x-intercepts = solutions (2 and 3). No factoring sign errors.",ids:[{id:"q",latex:"y=x^2-5x+6"}],steps:"Graph → read intercepts. Verify by plugging."},
+{t:"Vertex (max/min)",ex:"y=x^2-4x+7",why:"Hover bottom/top → (2,3). Min value = y=3, not x.",ids:[{id:"v",latex:"y=x^2-4x+7"}],steps:"Read y of vertex. Check -b/2a=2."},
+{t:"Equivalents",ex:"Plug x=2",why:"Plug x=2 into Q + each choice. Survivor matches. Graph to confirm overlap.",ids:[{id:"e1",latex:"y=(x+3)(x-2)"},{id:"e2",latex:"y=x^2+x-6"}],steps:"Table x=2: Q=0, A=0. Overlap = equivalent."},
+{t:"Inequalities",ex:"y>2x+1",why:"Shade appears. Test (0,0): false → not shaded side.",ids:[{id:"i",latex:"y>2x+1"}],steps:"> dashed, ≥ solid. Test point every time."},
+{t:"Circles",ex:"(x-2)^2+(y+1)^2=9",why:"Center (2,-1), r=3. Note r² in equation + sign flip.",ids:[{id:"c",latex:"(x-2)^2+(y+1)^2=9"}],steps:"Square grid on. r=√9=3, not 9."}];
+const TRICKS=[
+["y=mx+b sliders","Feel slope/intercept. Parallel = same m.","Never slower"],
+["y1,y2 → intersection","Any 2×2 in 20s","Obvious elimination <15s → hand"],
+["y=ax²+bx+c","Roots + vertex read off","Instant factor → hand"],
+["LHS−RHS zeros","Any equation solutions","One-step linear → hand"],
+["+ → Table A–D","Test choices, no solve","Direct solve <20s → hand"],
+["Plug x=2","Equivalents killer","Always plug first"],
+["y>mx+b + (0,0)","Shade verify","x+3>5 → hand"],
+["(x−h)²+(y−k)²=r²","Center/radius check","Completing obvious → hand"],
+["mean/median([])","Outlier effect","Definition Q → hand"]];
+const EX=[
+{q:"System: 2x+y=7 and x−y=−1. x = ?",opts:["1","2","3","4"],ans:1,latex:[["y=-2x+7"],["y=x+1"]],steps:"y1=−2x+7, y2=x+1 → intersection (2,3) → x=2."},
+{q:"Roots of x²−5x+6=0?",opts:["2 and 3","−2 and −3","1 and 6","0 and 5"],ans:0,latex:[["y=x^2-5x+6"]],steps:"x-intercepts at 2, 3."},
+{q:"Minimum of y=x²−4x+7?",opts:["2","3","4","7"],ans:1,latex:[["y=x^2-4x+7"]],steps:"Vertex (2,3) → min y=3."},
+{q:"Equivalent to (x+3)(x−2)?",opts:["x²+x−6","x²−x+6","x²+5x−6","x²−5x−6"],ans:0,latex:[["y=(x+3)(x-2)"],["y=x^2+x-6"]],steps:"x=2: Q=0, A=0. Graphs overlap."},
+{q:"Center of (x−2)²+(y+1)²=9?",opts:["(2,−1) r=3","(−2,1) r=9","(2,1) r=3","(2,−1) r=9"],ans:0,latex:[["(x-2)^2+(y+1)^2=9"]],steps:"Center (2,−1), r=√9=3."},
+{q:"Which satisfies y>2x+1?",opts:["(0,0)","(0,2)","(1,1)","(−1,0)"],ans:1,latex:[["y>2x+1"]],steps:"Shade above. (0,2): 2>1 true."}];
+
+function loadPreset(ids){ if(!calc){alert("Desmos still loading — type manually:\\n"+ids.map(o=>o.latex).join("\\n"));return;}
+ calc.setBlank(); ids.forEach(o=>{try{calc.setExpression({id:o.id||o.latex,latex:o.latex})}catch(e){}}); document.getElementById("calculator").scrollIntoView({behavior:"smooth"}); }
+function initCalc(){ try{ const el=document.getElementById("calc"); calc=Desmos.GraphingCalculator(el,{keypad:true,settingsMenu:true,expressionsTopbar:true}); $("#calc-status").textContent="Desmos loaded — click a preset or question-type button."; loadPreset([{id:"l1",latex:"y=2x+3"},{id:"l2",latex:"y=-x+5"}]); }catch(e){ $("#calc-status").innerHTML='Desmos blocked. <a href="https://www.desmos.com/calculator" target="_blank">Open desmos.com</a> and type preset text.'; } }
+window.addEventListener("load",()=>{ setTimeout(()=>{ if(window.Desmos) initCalc(); else $("#calc-status").innerHTML='Desmos failed to load. <a href="https://www.desmos.com/calculator" target="_blank">Open desmos.com</a>'; },400);
+ const pg=$("#presets"); [["System","y1,y2"], ["Quadratic","roots"], ["Vertex","min"], ["Circle","center"], ["Inequality","shade"], ["Clear","×"]].forEach(([label])=>{ const b=document.createElement("button"); b.className="btn small ghost"; b.textContent=label; b.onclick=()=>{ const m={"System":[{id:"l1",latex:"y=-2x+7"},{id:"l2",latex:"y=x+1"}],"Quadratic":[{id:"q",latex:"y=x^2-5x+6"}],"Vertex":[{id:"v",latex:"y=x^2-4x+7"}],"Circle":[{id:"c",latex:"(x-2)^2+(y+1)^2=9"}],"Inequality":[{id:"i",latex:"y>2x+1"}],"Clear":[]}[label]; if(label==="Clear"&&calc)calc.setBlank(); else loadPreset(m); }; pg.appendChild(b); });
+ const tg=$("#type-grid"); TYPES.forEach(t=>{ const d=document.createElement("div"); d.className="card"; d.innerHTML=`<h3>${t.t}</h3><p class="muted"><code>${t.ex}</code><br>${t.why}<br><span class="muted">${t.steps}</span></p>`; const b=document.createElement("button"); b.className="btn small"; b.textContent="Try in calculator"; b.onclick=()=>loadPreset(t.ids); d.appendChild(b); tg.appendChild(d); });
+ const hg=$("#trick-grid"); TRICKS.forEach(([a,b,c])=>{ const d=document.createElement("div"); d.className="card"; d.innerHTML=`<h3 style="font-size:15px">${a}</h3><p class="muted">${b}<br>Hand faster: ${c}</p>`; hg.appendChild(d); });
+ const ex=$("#ex-list"); EX.forEach((e,i)=>{ const d=document.createElement("div"); d.className="q"; d.id="q"+i; d.innerHTML=`<b>Q${i+1}. ${e.q}</b><div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0">${e.opts.map((o,j)=>`<label style="border:1px solid var(--line);border-radius:8px;padding:8px 12px;cursor:pointer"><input type="radio" name="ex${i}" value="${j}" style="width:auto"> ${o}</label>`).join("")}</div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn small ghost" data-des="${i}">Show Desmos steps</button><span class="muted" data-sol="${i}" style="display:none">${e.steps}</span></div>`; ex.appendChild(d); });
+ document.querySelectorAll("[data-des]").forEach(b=>b.onclick=()=>{ const i=+b.dataset.des; const s=document.querySelector(`[data-sol="${i}"]`); s.style.display="inline"; loadPreset(EX[i].latex.map((l,k)=>({id:"ex"+i+"_"+k,latex:l[0]}))); });
+ let t=null,sec=720; const T=$("#timer");
+ $("#start-timer").onclick=()=>{ clearInterval(t); t=setInterval(()=>{ sec=Math.max(0,sec-1); const m=String(Math.floor(sec/60)).padStart(2,"0"),s=String(sec%60).padStart(2,"0"); T.textContent=`${m}:${s}`; if(sec===0)clearInterval(t); },1000); };
+ $("#reset-ex").onclick=()=>{ clearInterval(t); sec=720; T.textContent="12:00"; $("#score").textContent=""; document.querySelectorAll(".q").forEach(q=>q.classList.remove("correct","wrong")); document.querySelectorAll("input[type=radio]").forEach(r=>r.checked=false); };
+ $("#check-ex").onclick=()=>{ let c=0; EX.forEach((e,i)=>{ const sel=document.querySelector(`input[name=ex${i}]:checked`); const box=document.getElementById("q"+i); box.classList.remove("correct","wrong"); if(sel&&+sel.value===e.ans){c++;box.classList.add("correct")}else box.classList.add("wrong"); document.querySelector(`[data-sol="${i}"]`).style.display="inline"; }); $("#score").textContent=`Score: ${c}/6 ${c===6?"— 800-level pace ✓":c>=4?"— hard-module ready":"— redo with Desmos steps above"}`; };
+});
+</script>
+</body>
+</html>
