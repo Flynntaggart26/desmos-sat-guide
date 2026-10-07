@@ -1,0 +1,13 @@
+name: New trick
+description: Suggest a Desmos trick
+body:
+  - type: input
+    id: input
+    attributes:
+      label: Exact Desmos input
+    validations:
+      required: true
+  - type: textarea
+    id: use
+    attributes:
+      label: SAT use case + when hand is faster

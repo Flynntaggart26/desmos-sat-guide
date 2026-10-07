@@ -1,0 +1,12 @@
+[
+  {"id": "line", "input": "y=mx+b", "use": "Slope/intercept feel, graph any line", "when_slower": "Never for graphing", "trap": "Parallel = same m"},
+  {"id": "system", "input": "y1=.. y2=.. → click intersection", "use": "Any 2x2 system in 20s", "when_slower": "Obvious add-to-eliminate in <15s", "trap": "Solve for asked (2x vs x)"},
+  {"id": "quadratic", "input": "y=ax^2+bx+c", "use": "Roots=x-intercepts, vertex=max/min", "when_slower": "Instant factoring <15s", "trap": "Vertex y not x"},
+  {"id": "zero", "input": "Graph LHS-RHS, read zeros", "use": "Any equation solutions", "when_slower": "One-step linear", "trap": "Bring all to one side first"},
+  {"id": "table-test", "input": "+ → Table, enter A-D", "use": "Test choices without solving", "when_slower": "Direct solve <20s", "trap": "Enter exact choice values"},
+  {"id": "equivalent", "input": "Plug x=2 into Q + choices", "use": "Equivalent expressions", "when_slower": "Never — always plug first", "trap": "2 choices survive → graph overlap"},
+  {"id": "inequality", "input": "y>mx+b, test (0,0)", "use": "Shade verify", "when_slower": "Simple x+3>5", "trap": "> dashed vs ≥ solid"},
+  {"id": "circle", "input": "(x-h)^2+(y-k)^2=r^2", "use": "Center (h,k) r=√num", "when_slower": "Completing square obvious", "trap": "r vs r², sign flip"},
+  {"id": "stats", "input": "mean([...]) median([...])", "use": "Verify stats, outlier effect", "when_slower": "Definition Q", "trap": "Median needs sorted"},
+  {"id": "exponent", "input": "y=a*b^x vs y=x^2", "use": "Growth + intersection", "when_slower": "Rule known cold", "trap": "(x+y)^2≠x²+y²"}
+]

@@ -1,0 +1,4 @@
+date,drill,task,time_sec,method,faster_next,error
+2026-01-01,03,system 2x2,22,Desmos,Desmos,none - verified plug
+2026-01-02,05,quadratic roots,28,Desmos,Desmos,read y not x once
+2026-01-03,08,equivalent plug x=2,45,plug+graph,plug first,sign slip avoided
