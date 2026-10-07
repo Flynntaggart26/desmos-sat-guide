@@ -14,6 +14,10 @@
 
 **Why Desmos?** 30% of Digital SAT Math is faster graphed than solved. Systems, quadratics, exponents, stats — 20 seconds vs 2 minutes. This repo shows exact inputs to type, when NOT to graph, and how to practice in 10 min/day.
 
+## 🌐 Live interactive webpage
+
+**→ https://flynntaggart26.github.io/desmos-sat-guide/** — real Desmos calculator embedded + question types that love Desmos + 10 tricks + full 6-question timed exercise with solutions. Start there, then read `guides/` for depth.
+
 Part of the SAT system: [`sat-study-tutor`](https://github.com/Flynntaggart26/sat-study-tutor) — full study plans + sources. Use this repo for the calculator skill alone.
 
 ---
