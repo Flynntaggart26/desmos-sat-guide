@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Desmos for SAT — Interactive Guide + Real Calculator</title>
-<meta name="description" content="Master Desmos for Digital SAT Math: real embedded calculator, Desmos-friendly question types, 30 tricks, timed 6-question exercise." />
+<meta name="description" content="Master Desmos for Digital SAT Math: real embedded calculator, Desmos-friendly question types, 12 tricks, 30-question topic exercise." />
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
@@ -17,6 +17,7 @@ header.top{position:sticky;top:0;z-index:20;background:rgba(7,11,24,.8);backdrop
 .links{display:flex;gap:4px;flex-wrap:wrap}.links a{color:var(--muted);text-decoration:none;font-size:14px;padding:8px 11px;border-radius:10px}.links a.active,.links a:hover{color:#fff;background:#1a2450}
 .btn{background:linear-gradient(135deg,var(--acc),var(--acc-d));color:#fff;border:0;border-radius:12px;padding:11px 16px;cursor:pointer;text-decoration:none;font-weight:700;display:inline-flex;align-items:center;gap:8px;box-shadow:0 8px 24px rgba(91,140,255,.35);transition:transform .12s ease,filter .12s}
 .btn:hover{transform:translateY(-1px);filter:brightness(1.06)}.btn.ghost{background:#141d42;border:1px solid var(--line2);box-shadow:none;color:var(--text)}.btn.small{padding:8px 12px;font-size:13px;border-radius:10px}
+.btn.on{background:linear-gradient(135deg,#34d399,#0ea5e9);box-shadow:0 8px 24px rgba(52,211,153,.3)}
 .hero{padding:44px 0 8px;display:grid;grid-template-columns:1.15fr .85fr;gap:22px;align-items:stretch}
 @media(max-width:920px){.hero{grid-template-columns:1fr}}
 .hero-main{background:linear-gradient(180deg,rgba(27,38,90,.65),rgba(15,22,52,.65));border:1px solid var(--line2);border-radius:22px;padding:26px;box-shadow:var(--sh);position:relative;overflow:hidden}
@@ -42,19 +43,25 @@ code{font-family:"JetBrains Mono",monospace;background:#0a1230;border:1px solid 
 #calc{width:100%;height:540px;border-radius:14px;overflow:hidden;border:1px solid #c9d4ff;background:#fff}
 .hint{display:flex;gap:10px;align-items:flex-start;background:#0e1a3f;border:1px dashed var(--line2);border-radius:14px;padding:12px 14px;color:var(--muted);font-size:14px;margin-top:12px}
 .type-card{display:flex;flex-direction:column;gap:8px}.type-top{display:flex;gap:8px;align-items:center}.icon{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;font-size:19px;background:#182257;border:1px solid var(--line2)}
-.badge{font-size:11.5px;border-radius:999px;padding:3px 9px;border:1px solid var(--line2);color:#c7d1f5;background:#101a44}.badge.save{color:#06281c;background:linear-gradient(135deg,#6ee7b7,#34d399);border:0;font-weight:700}
+.badge{font-size:11.5px;border-radius:999px;padding:3px 9px;border:1px solid var(--line2);color:#c7d1f5;background:#101a44}.badge.save{color:#06281c;background:linear-gradient(135deg,#6ee7b7,#34d399);border:0;font-weight:700}.badge.lvl{color:#9db4ff}
+.steps{margin:6px 0 0 18px;padding:0;color:#c4cdf0;font-size:13.5px}.steps li{margin:3px 0}
+.trap{background:#2a1330;border:1px solid #6b2d5c;border-radius:10px;padding:8px 10px;font-size:13px;color:#f5c6e8}
 .trick-num{font-family:"JetBrains Mono",monospace;background:#0a1230;border:1px solid var(--line2);width:30px;height:30px;display:grid;place-items:center;border-radius:9px;font-size:13px;color:#9db4ff}
 .trick-head{display:flex;gap:10px;align-items:center;margin-bottom:6px}.copybtn{margin-left:auto}
 .ex-bar{position:sticky;top:64px;z-index:5;background:rgba(10,15,35,.9);backdrop-filter:blur(10px);border:1px solid var(--line2);border-radius:14px;padding:10px 12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .timer{font-variant-numeric:tabular-nums;font-weight:800;font-size:18px;background:#0a1230;border:1px solid var(--line2);padding:4px 12px;border-radius:10px}.timer.low{color:#ffb4b4;border-color:var(--bad)}
 .progress{flex:1;min-width:140px;height:10px;background:#0a1230;border:1px solid var(--line);border-radius:999px;overflow:hidden}.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--acc),#9d6bff)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.chip{background:#141d42;border:1px solid var(--line2);color:var(--text);border-radius:999px;padding:7px 14px;cursor:pointer;font-size:13px;font-weight:600}.chip.on{background:linear-gradient(135deg,var(--acc),var(--acc-d));border-color:transparent}
+select.time{background:#0e1430;border:1px solid var(--line2);color:var(--text);border-radius:10px;padding:8px 10px;font-size:13px;width:auto}
 .q{border:1px solid var(--line);border-radius:16px;padding:16px;margin:12px 0;background:linear-gradient(180deg,#101838,#0d1430)}
 .q.correct{border-color:var(--ok);box-shadow:0 0 0 3px rgba(52,211,153,.15)}.q.wrong{border-color:var(--bad);box-shadow:0 0 0 3px rgba(248,113,113,.12)}
+.qtag{font-size:11.5px;border-radius:999px;padding:2px 10px;background:#182257;border:1px solid var(--line2);color:#9db4ff;margin-left:8px}
 .opts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
 @media(max-width:640px){.opts{grid-template-columns:1fr}}
 .opt{border:1px solid var(--line2);border-radius:12px;padding:10px 12px;cursor:pointer;display:flex;gap:9px;align-items:center;background:#0d1440;transition:border-color .12s,background .12s}
 .opt:hover{border-color:var(--acc)}.opt input{accent-color:var(--acc);width:16px;height:16px}
 .sol{display:none;margin-top:8px;background:#0a1230;border:1px solid var(--line2);border-radius:12px;padding:10px 12px;color:#c9d5fb;font-size:14px}
+.tip{background:#0e2a22;border:1px solid #1f6f54;border-radius:10px;padding:8px 10px;font-size:13px;color:#b8f0d9;margin-top:8px}
 footer{padding:28px 0 40px;color:var(--muted);border-top:1px solid var(--line);margin-top:18px}
 .top-link{position:fixed;right:18px;bottom:18px;z-index:30}
 :focus-visible{outline:2px solid var(--acc);outline-offset:2px}
@@ -76,17 +83,17 @@ footer{padding:28px 0 40px;color:var(--muted);border-top:1px solid var(--line);m
 <div class="hero-main">
 <div class="pills"><span class="pill">Digital SAT Math</span><span class="pill">Bluebook built-in</span><span class="pill">Real Desmos embedded</span></div>
 <h1>Graph your way to 750+ Math.</h1>
-<p>30% of SAT Math is faster graphed than solved. Load a preset, click the intersection, verify — then prove it in the timed 6-question exercise. Same Desmos engine as Bluebook.</p>
-<div class="cta"><a class="btn" href="#calculator">▶ Open calculator</a><a class="btn ghost" href="#exercise">⏱ Start 6Q exercise</a></div>
+<p>30% of SAT Math is faster graphed than solved. Load a preset, click the intersection, verify — then prove it in the <b>30-question topic exercise</b> (5 per type). Same Desmos engine as Bluebook.</p>
+<div class="cta"><a class="btn" href="#calculator">▶ Open calculator</a><a class="btn ghost" href="#exercise">⏱ Start 30Q exercise</a></div>
 <div class="stats">
 <div class="stat"><b>20s</b><br><span>systems via intersection vs 2-min algebra</span></div>
-<div class="stat"><b>6 types</b><br><span>where Desmos beats hand every time</span></div>
-<div class="stat"><b>6 Qs</b><br><span>timed exercise with Desmos solutions</span></div>
+<div class="stat"><b>6 topics</b><br><span>5 questions each, tutorial per card</span></div>
+<div class="stat"><b>30 Qs</b><br><span>timed exercise with Desmos solutions</span></div>
 </div>
 </div>
 <aside class="hero-side">
 <div class="mini"><b>⚡ 60-second rule</b><ol><li>Algebra &gt;60s → <b>graph it</b></li><li>One-step linear → <b>hand</b> (faster)</li><li>Always <b>plug back / table-check</b></li></ol></div>
-<div class="mini"><b>🧭 How to use this page</b><ol><li>Click a <b>preset</b> under the calculator</li><li>Open a <b>question type</b> → Try it</li><li>Run the <b>exercise</b> with timer on</li></ol></div>
+<div class="mini"><b>🧭 How to use this page</b><ol><li>Read a <b>type card</b> (3-step tutorial + trap)</li><li>Click <b>▶ Try it</b> to load the graph</li><li>Filter the <b>exercise by topic</b>, timer on</li></ol></div>
 </aside>
 </div>
 
@@ -102,22 +109,24 @@ footer{padding:28px 0 40px;color:var(--muted);border-top:1px solid var(--line);m
 </section>
 
 <section id="types">
-<div class="sec-head"><span class="num">02</span><h2>Question types where Desmos wins</h2></div>
-<p class="sub">Each card shows the exact input, why it’s faster, the trap, and a one-click demo in the calculator above.</p>
+<div class="sec-head"><span class="num">02</span><h2>Question types — mini-tutorial per card</h2></div>
+<p class="sub">Each card = 3-step Desmos tutorial + the #1 trap + one-click demo. Master one card, then do its 5 exercise questions below.</p>
 <div class="grid cols2" id="type-grid"></div>
 </section>
 
 <section id="tricks">
-<div class="sec-head"><span class="num">03</span><h2>Tricks — tap to copy</h2></div>
-<p class="sub">Full 30 with traps: <a href="https://github.com/Flynntaggart26/desmos-sat-guide/blob/main/cheatsheets/1-page.md" target="_blank" rel="noopener">1-page cheatsheet</a> · <a href="https://github.com/Flynntaggart26/desmos-sat-guide/blob/main/data/tricks.json" target="_blank" rel="noopener">tricks.json</a></p>
+<div class="sec-head"><span class="num">03</span><h2>Tricks — 12, tap to copy</h2></div>
+<p class="sub">Ordered beginner → advanced. Each shows when hand is faster (don’t over-graph). Full 30 with traps: <a href="https://github.com/Flynntaggart26/desmos-sat-guide/blob/main/cheatsheets/1-page.md" target="_blank" rel="noopener">1-page cheatsheet</a> · <a href="https://github.com/Flynntaggart26/desmos-sat-guide/blob/main/data/tricks.json" target="_blank" rel="noopener">tricks.json</a></p>
 <div class="grid cols3" id="trick-grid"></div>
 </section>
 
 <section id="exercise">
-<div class="sec-head"><span class="num">04</span><h2>Full exercise — 6 Qs · 12 min</h2></div>
-<p class="sub">SAT-style, Bluebook order (systems → quadratics → equivalents → circle → inequality). “Show Desmos steps” loads the graph and scrolls up.</p>
+<div class="sec-head"><span class="num">04</span><h2>Exercise — 5 questions × 6 topics</h2></div>
+<p class="sub">Filter by topic (5 Qs, 8 min) or run all 30 (40 min, SAT pace). “Show Desmos steps” loads the graph and scrolls up. Every question has a pro tip.</p>
+<div class="chips" id="topic-chips"></div>
 <div class="ex-bar">
-<span>⏱ <span class="timer" id="timer">12:00</span></span>
+<span>⏱ <span class="timer" id="timer">08:00</span></span>
+<select class="time" id="time-sel"><option value="480">8 min (topic)</option><option value="720">12 min (mixed)</option><option value="2400">40 min (full 30)</option></select>
 <button class="btn small" id="start-timer">Start</button>
 <button class="btn small ghost" id="reset-ex">Reset</button>
 <button class="btn small" id="check-ex">Check answers</button>
@@ -125,14 +134,15 @@ footer{padding:28px 0 40px;color:var(--muted);border-top:1px solid var(--line);m
 <span class="sub" id="score" style="margin:0"></span>
 </div>
 <div id="ex-list"></div>
+<div class="card"><b>Scoring:</b> <span class="sub" style="margin:0">5/5 per topic = fluent · 4/5 = ready with checklist · ≤3/5 = redo that type card tutorial + drills in <a href="https://github.com/Flynntaggart26/desmos-sat-guide/blob/main/practice/drills.md">practice/drills.md</a>.</span></div>
 </section>
 
 <section id="guide">
 <div class="sec-head"><span class="num">05</span><h2>Guide — 7-day speed plan</h2></div>
 <div class="grid cols3">
-<div class="card hover"><h3>📅 Days 1–2 · Lines + systems</h3><p class="sub" style="margin:0">Graph 3 lines in 45s. Intersection = 2×2 solution. Sliders for word problems. Drill: 3 textbook systems, plug-verify each.</p></div>
-<div class="card hover"><h3>📈 Days 3–4 · Quadratics + tables</h3><p class="sub" style="margin:0">Roots = intercepts, vertex = peak. Zero-method for any equation. Table-test A–D without solving. Plug x=2 for equivalents.</p></div>
-<div class="card hover"><h3>🎯 Days 5–7 · Mixed + test day</h3><p class="sub" style="margin:0">Inequalities + circles (square grid). Mixed 10Q timed, log graph-vs-hand. Test day: update Bluebook, charger, slow first 10 Qs.</p></div>
+<div class="card hover"><h3>📅 Days 1–2 · Lines + systems</h3><p class="sub" style="margin:0"><b>Do:</b> graph 3 lines in 45s; solve 5 textbook 2×2 via intersection, plug-verify each. <b>Pass:</b> intersection in ≤25s. <b>Tip:</b> write equations as y=… first — Desmos graphs functions fastest.</p></div>
+<div class="card hover"><h3>📈 Days 3–4 · Quadratics + tables</h3><p class="sub" style="margin:0"><b>Do:</b> 5 roots + 5 vertex reads; table-test 5 “which value” Qs; plug x=2 for 10 equivalents. <b>Pass:</b> roots in ≤30s. <b>Tip:</b> vertex question asks y (value), not x — read both coordinates.</p></div>
+<div class="card hover"><h3>🎯 Days 5–7 · Mixed + test day</h3><p class="sub" style="margin:0"><b>Do:</b> 5 inequalities + 5 circles (square grid on); mixed 10Q timed, log graph-vs-hand per Q. <b>Pass:</b> decide method in ≤5s. <b>Tip:</b> slow first 10 Qs — adaptive M1 decides your M2 difficulty.</p></div>
 </div>
 <p class="sub">Depth: <a href="https://github.com/Flynntaggart26/desmos-sat-guide" target="_blank" rel="noopener">desmos-sat-guide repo</a> — guides/, examples/01–10, practice/drills.md · Full SAT system: <a href="https://github.com/Flynntaggart26/sat-study-tutor" target="_blank" rel="noopener">sat-study-tutor</a></p>
 </section>
@@ -144,48 +154,84 @@ footer{padding:28px 0 40px;color:var(--muted);border-top:1px solid var(--line);m
 <script src="https://www.desmos.com/api/v1.10/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
 <script>
 let calc=null;const $=s=>document.querySelector(s);
+const TOPICS=["Systems","Roots","Vertex","Equivalents","Inequalities","Circles"];
 const TYPES=[
-{icon:"🔗",t:"Systems",ex:"y1=-2x+7 | y2=x+1",save:"~90s saved",why:"Click intersection = (2,3). Beats substitution 80% of the time.",ids:[{id:"l1",latex:"y=-2x+7"},{id:"l2",latex:"y=x+1"}],steps:"Type y1, y2 → click black dot → x=2, y=3. Trap: they ask x vs 2x — read the ask."},
-{icon:"📈",t:"Quadratics: roots",ex:"y=x^2-5x+6",save:"~60s saved",why:"x-intercepts = solutions (2 and 3). Zero factoring sign errors.",ids:[{id:"q",latex:"y=x^2-5x+6"}],steps:"Graph → read intercepts → plug back to verify."},
-{icon:"⛰️",t:"Vertex (max/min)",ex:"y=x^2-4x+7",save:"~45s saved",why:"Hover peak → (2,3). Minimum value = y=3, not x.",ids:[{id:"v",latex:"y=x^2-4x+7"}],steps:"Read y of vertex. Cross-check x=-b/2a=2."},
-{icon:"🧩",t:"Equivalents",ex:"Plug x=2",save:"avoids expansion slips",why:"Plug x=2 into Q + each choice. Survivor matches; graph overlap to confirm.",ids:[{id:"e1",latex:"y=(x+3)(x-2)"},{id:"e2",latex:"y=x^2+x-6"}],steps:"Table x=2: Q=0, A=0. Overlap = equivalent."},
-{icon:"◨",t:"Inequalities",ex:"y>2x+1",save:"visual verify",why:"Shade appears. Test (0,0): false → unshaded side is wrong.",ids:[{id:"i",latex:"y>2x+1"}],steps:"> dashed, ≥ solid. Test a point every time."},
-{icon:"⭕",t:"Circles",ex:"(x-2)^2+(y+1)^2=9",save:"no completing square",why:"Center (2,-1), r=3. Equation shows r² + flipped signs.",ids:[{id:"c",latex:"(x-2)^2+(y+1)^2=9"}],steps:"Square grid on. r=√9=3, not 9."}];
+{icon:"🔗",t:"Systems",lvl:"Core · 4 Qs/test",ex:"y1=-2x+7 | y2=x+1",save:"~90s saved",why:"Click intersection = solution. Beats substitution 80% of the time.",ids:[{id:"l1",latex:"y=-2x+7"},{id:"l2",latex:"y=x+1"}],tutorial:["Solve each equation for y (e.g. 2x+y=7 → y=-2x+7).","Type both → click the black intersection dot.","Read x (and y) — verify by plugging into the original."],trap:"They ask for x but you read y (or 2x vs x). Underline the ask before clicking."},
+{icon:"📈",t:"Quadratics: roots",lvl:"Core · 3 Qs/test",ex:"y=x^2-5x+6",save:"~60s saved",why:"x-intercepts = solutions. Zero factoring sign errors.",ids:[{id:"q",latex:"y=x^2-5x+6"}],tutorial:["Type the quadratic as y=… .","Zoom to see where it crosses the x-axis.","Those x-values are the roots — plug one back to confirm."],trap:"Double root (touches once) = one solution, not two. Don't invent a second intercept."},
+{icon:"⛰️",t:"Vertex (max/min)",lvl:"Core · 2 Qs/test",ex:"y=x^2-4x+7",save:"~45s saved",why:"Hover the peak/valley → (h,k). Value asked = y.",ids:[{id:"v",latex:"y=x^2-4x+7"}],tutorial:["Graph y=… .","Hover the top (max, a<0) or bottom (min, a>0) point.","Read the y-coordinate — that's the max/min value."],trap:"Answering x=2 (vertex x) when they asked the minimum value (y=3). Read both."},
+{icon:"🧩",t:"Equivalents",lvl:"Core · 2 Qs/test",ex:"Plug x=2",save:"kills expansion slips",why:"Plug x=2 into Q + each choice. Survivor matches; graph overlap to confirm.",ids:[{id:"e1",latex:"y=(x+3)(x-2)"},{id:"e2",latex:"y=x^2+x-6"}],tutorial:["Pick x=2 (avoid 0/1 which hide errors).","Evaluate Q and each choice (table or mental).","Keep survivors → graph Q vs survivor: full overlap = equivalent."],trap:"x=0 or 1 can make wrong choices match by accident. Use x=2 (or 3 as backup)."},
+{icon:"◨",t:"Inequalities",lvl:"Medium · 1–2 Qs/test",ex:"y>2x+1",save:"visual verify",why:"Shade appears. Test (0,0): false → that side is wrong.",ids:[{id:"i",latex:"y>2x+1"}],tutorial:["Type the inequality as-is (>, ≥, <, ≤).","Look at the shaded side.","Test (0,0) in the original: true = shaded side correct."],trap:"> is dashed (line excluded), ≥ is solid (included). Boundary-point choices exploit this."},
+{icon:"⭕",t:"Circles",lvl:"Medium · 1 Q/test",ex:"(x-2)^2+(y+1)^2=9",save:"no completing square",why:"Center (h,k), radius = √number. Signs flip.",ids:[{id:"c",latex:"(x-2)^2+(y+1)^2=9"}],tutorial:["Type the equation as-is.","Read center: (x−2)→h=2, (y+1)→k=−1.","Radius = square root of the right side (√9=3)."],trap:"Answering r=9 (that's r²) and forgetting sign flips: (x−2) means h=+2."}];
 const TRICKS=[
-["y=mx+b sliders","Feel slope/intercept. Parallel = same m.","Never slower","y=mx+b"],
-["y1,y2 → intersection","Any 2×2 in ~20s.","Elimination <15s → hand","y1=-2x+7"],
-["y=ax²+bx+c","Roots + vertex read off graph.","Instant factor → hand","y=x^2-5x+6"],
-["LHS−RHS → zeros","Solutions = x-intercepts.","One-step linear → hand","y=x^2-3x-4"],
-["+ → Table A–D","Test choices without solving.","Direct solve <20s → hand","table"],
-["Plug x=2","Equivalents killer.","Always plug first","x=2"],
-["y>mx+b + (0,0)","Shade + point test.","x+3>5 → hand","y>2x+1"],
-["(x−h)²+(y−k)²=r²","Center/radius check.","Square obvious → hand","(x-2)^2+(y+1)^2=9"],
-["mean/median([])","Outlier effect in one line.","Definition Q → hand","mean([3,5,7,7,20])"]];
+["y=mx+b sliders","Feel slope/intercept. Parallel = same m.","Never slower — always graph lines.","y=mx+b","Beginner"],
+["y1,y2 → intersection","Any 2×2 system in ~20s.","Obvious add-to-eliminate <15s → hand.","y1=-2x+7","Beginner"],
+["+ → Table, test A–D","'Which value satisfies?' without solving.","Direct solve <20s → hand.","table x: 0,1,2","Beginner"],
+["y=ax²+bx+c read-off","Roots = intercepts, vertex = peak.","Instant factor (<15s) → hand.","y=x^2-5x+6","Core"],
+["LHS−RHS → zeros","Solutions of ANY equation = x-intercepts.","One-step linear → hand.","y=x^2-3x-4","Core"],
+["Plug x=2 (then 3)","Equivalents without expanding.","Always plug first; graph to confirm.","x=2","Core"],
+["y>mx+b + test (0,0)","Shade verify in 10s.","x+3>5 → hand.","y>2x+1","Core"],
+["Circle: flip signs, √r²","Center (h,k), r=√num. Square grid on.","Completing square obvious → hand.","(x-2)^2+(y+1)^2=9","Core"],
+["Zero-method check","Graph Q−choice; zero line = equivalent.","2+ survivors → graph overlap.","y=(x+3)(x-2)-(x^2+x-6)","Advanced"],
+["Sliders for word problems","y=base+rate·x, drag to break-even.","Table faster for 2-point checks.","y=50+25x","Advanced"],
+["mean/median([])","Outlier effect in one line.","Definition-only Q → hand.","mean([3,5,7,7,20])","Advanced"],
+["Zoom + square grid","Circles/geometry look wrong stretched.","Always square grid for circles.","settings → square","Advanced"]];
 const EX=[
-{q:"System: 2x+y=7 and x−y=−1. x = ?",opts:["1","2","3","4"],ans:1,latex:[["y=-2x+7"],["y=x+1"]],steps:"y1=−2x+7, y2=x+1 → intersection (2,3) → x=2."},
-{q:"Roots of x²−5x+6=0?",opts:["2 and 3","−2 and −3","1 and 6","0 and 5"],ans:0,latex:[["y=x^2-5x+6"]],steps:"x-intercepts at 2 and 3."},
-{q:"Minimum of y=x²−4x+7?",opts:["2","3","4","7"],ans:1,latex:[["y=x^2-4x+7"]],steps:"Vertex (2,3) → minimum y=3."},
-{q:"Equivalent to (x+3)(x−2)?",opts:["x²+x−6","x²−x+6","x²+5x−6","x²−5x−6"],ans:0,latex:[["y=(x+3)(x-2)"],["y=x^2+x-6"]],steps:"x=2 gives Q=0, A=0. Graphs overlap."},
-{q:"Center of (x−2)²+(y+1)²=9?",opts:["(2,−1), r=3","(−2,1), r=9","(2,1), r=3","(2,−1), r=9"],ans:0,latex:[["(x-2)^2+(y+1)^2=9"]],steps:"Center (2,−1), r=√9=3."},
-{q:"Which point satisfies y>2x+1?",opts:["(0,0)","(0,2)","(1,1)","(−1,0)"],ans:1,latex:[["y>2x+1"]],steps:"Shade above the line. (0,2): 2>1 ✓."}];
+{t:0,q:"2x+y=7 and x−y=−1. x = ?",opts:["1","2","3","4"],ans:1,latex:[["y=-2x+7"],["y=x+1"]],steps:"y1=−2x+7, y2=x+1 → intersection (2,3) → x=2.",tip:"Write both as y=… first — Desmos graphs functions fastest."},
+{t:0,q:"y=3x−5 and y=−x+3 intersect at y = ?",opts:["1","2","−1","3"],ans:0,latex:[["y=3x-5"],["y=-x+3"]],steps:"Intersection (2,1) → y=1. Trap: x=2 is not asked.",tip:"Circle what they ask (x? y? 2x?) before reading the dot."},
+{t:0,q:"How many solutions does y=2x+1 with y=2x−4 have?",opts:["0","1","2","Infinitely many"],ans:0,latex:[["y=2x+1"],["y=2x-4"]],steps:"Parallel lines (same slope 2) never meet → 0 solutions.",tip:"Same m, different b = parallel = zero. Overlapping fully = infinite."},
+{t:0,q:"Plan A: 50+25x, Plan B: 20+30x. Equal at x = ?",opts:["5","6","10","30"],ans:1,latex:[["y=50+25x"],["y=20+30x"]],steps:"Intersection x=6. Check: 50+150=200, 20+180=200 ✓.",tip:"Word problem → define y=total, x=units, graph both, read crossing."},
+{t:0,q:"x+y=9 and x−y=3. What is 2x?",opts:["3","6","9","12"],ans:3,latex:[["y=-x+9"],["y=x-3"]],steps:"Intersection (6,3) → x=6 → 2x=12.",tip:"#1 SAT trap: solving x then forgetting ×2. Finish the last step."},
+{t:1,q:"Roots of x²−5x+6=0?",opts:["2 and 3","−2 and −3","1 and 6","0 and 5"],ans:0,latex:[["y=x^2-5x+6"]],steps:"x-intercepts at 2 and 3.",tip:"Intercepts = answers. Plug one back: (2−2)(2−3)=0 ✓."},
+{t:1,q:"Solutions to x²−9=0?",opts:["−3 and 3","3 only","9 and −9","0 and 9"],ans:0,latex:[["y=x^2-9"]],steps:"Crosses at −3 and 3. Difference of squares.",tip:"x²=k has TWO roots (±). Never drop the negative."},
+{t:1,q:"x²+4x+4=0 has what solution(s)?",opts:["−2 (double root)","2","−2 and 2","0"],ans:0,latex:[["y=x^2+4x+4"]],steps:"Touches x-axis once at −2 → one (double) solution.",tip:"Touching once = one solution. Don't invent a second intercept."},
+{t:1,q:"Solutions to 2x²−8=0?",opts:["−2 and 2","2 only","−4 and 4","0 and 4"],ans:0,latex:[["y=2x^2-8"]],steps:"Intercepts −2, 2. Or 2x²=8 → x²=4.",tip:"Divide by the leading 2 first to simplify, then read."},
+{t:1,q:"Zeros of (x−1)(x+4)?",opts:["1 and −4","−1 and 4","1 and 4","−1 and −4"],ans:0,latex:[["y=(x-1)(x+4)"]],steps:"Factored form shows roots directly: 1, −4.",tip:"Factored (x−r) → root +r. Sign flips from the parentheses."},
+{t:2,q:"Minimum value of y=x²−4x+7?",opts:["2","3","4","7"],ans:1,latex:[["y=x^2-4x+7"]],steps:"Valley at (2,3) → minimum y=3.",tip:"Value = y-coordinate. x=2 is where, 3 is what."},
+{t:2,q:"Maximum value of y=−x²+6x−5?",opts:["3","4","5","6"],ans:1,latex:[["y=-x^2+6x-5"]],steps:"Peak at (3,4) → maximum 4. a<0 opens down.",tip:"Negative leading coefficient = hill (max). Positive = valley (min)."},
+{t:2,q:"Vertex x-coordinate of y=2x²−8x+3?",opts:["2","−2","4","−8"],ans:0,latex:[["y=2x^2-8x+3"]],steps:"Vertex x=−b/2a=8/4=2. Graph bottom confirms.",tip:"x=−b/2a always works. Verify by hovering the vertex."},
+{t:2,q:"Vertex of y=(x−3)²+2? Minimum?",opts:["(3,2), min 2","(−3,2), min 2","(3,2), min 3","(3,−2), min −2"],ans:0,latex:[["y=(x-3)^2+2"]],steps:"Vertex form a(x−h)²+k → (3,2), min 2.",tip:"(x−3) means h=+3 (opposite sign). k=+2 stays."},
+{t:2,q:"Maximum of y=−(x+1)²+5?",opts:["5","−1","1","4"],ans:0,latex:[["y=-(x+1)^2+5"]],steps:"Vertex (−1,5), opens down → max 5.",tip:"(x+1) means h=−1. Leading − flips to a hill."},
+{t:3,q:"Equivalent to (x+3)(x−2)?",opts:["x²+x−6","x²−x+6","x²+5x−6","x²−5x−6"],ans:0,latex:[["y=(x+3)(x-2)"],["y=x^2+x-6"]],steps:"x=2: Q=0, A=0; x=0: Q=−6, A=−6. Graphs overlap.",tip:"Plug x=2 (never 0/1 — they hide errors), then graph survivors."},
+{t:3,q:"Equivalent to (x−5)²?",opts:["x²−10x+25","x²+10x+25","x²−25","x²−10x−25"],ans:0,latex:[["y=(x-5)^2"],["y=x^2-10x+25"]],steps:"x=2: Q=9, A=9 (4−20+25). Middle term −10x.",tip:"(a−b)² = a²−2ab+b². The middle doubles AND flips sign."},
+{t:3,q:"Equivalent to (2x+1)(x−3)?",opts:["2x²−5x−3","2x²+5x−3","2x²−7x−3","2x²+x−3"],ans:0,latex:[["y=(2x+1)(x-3)"],["y=2x^2-5x-3"]],steps:"x=2: Q=5×(−1)=−5; A: 8−10−3=−5 ✓.",tip:"FOIL check: First 2x², Outer −6x, Inner +x → −5x, Last −3."},
+{t:3,q:"Factored form of x²−16?",opts:["(x−4)(x+4)","(x−8)(x+2)","(x−16)(x+1)","(x−4)²"],ans:0,latex:[["y=x^2-16"],["y=(x-4)(x+4)"]],steps:"Difference of squares. x=2: Q=−12, A=(−2)(6)=−12 ✓.",tip:"a²−b²=(a−b)(a+b). Only works with a minus between squares."},
+{t:3,q:"Equivalent to 3x(2x−1)?",opts:["6x²−3x","6x²−1","5x−3x","6x²+3x"],ans:0,latex:[["y=3x(2x-1)"],["y=6x^2-3x"]],steps:"Distribute: 6x²−3x. x=2: 6×3=18; 24−6=18 ✓.",tip:"Multiply EVERY term inside. 3x×(−1)=−3x, not −1."},
+{t:4,q:"Which point satisfies y>2x+1?",opts:["(0,0)","(0,2)","(1,1)","(−1,0)"],ans:1,latex:[["y>2x+1"]],steps:"Shade above. (0,2): 2>1 ✓. (0,0): 0>1 ✗.",tip:"Test (0,0) first — fastest filter. If it fails, that side is out."},
+{t:4,q:"Which satisfies y≤−x+2?",opts:["(0,0)","(3,0)","(0,3)","(2,2)"],ans:0,latex:[["y<=-x+2"]],steps:"(0,0): 0≤2 ✓. Others: 0≤−1, 3≤2, 2≤0 all false.",tip:"≤ includes the line. Test each point by plugging — 15 seconds."},
+{t:4,q:"y≥3x−1: is the boundary line included?",opts:["Yes — solid line","No — dashed line","Only at x=0","Only if shaded"],ans:0,latex:[["y>=3x-1"]],steps:"≥ and ≤ are solid (included); > and < are dashed.",tip:"Bar under > means 'or equal' = solid. No bar = dashed."},
+{t:4,q:"Point satisfying BOTH y>x and y<−x+4?",opts:["(1,2)","(3,3)","(0,5)","(2,3)"],ans:0,latex:[["y>x"],["y<-x+4"]],steps:"(1,2): 2>1 ✓ and 2<3 ✓. Others fail one.",tip:"Check BOTH conditions. One pass isn't enough — verify the second."},
+{t:4,q:"(0,0) fails y>2x+1, so it is…",opts:["Not a solution — unshaded side","A solution","On the line","The vertex"],ans:0,latex:[["y>2x+1"]],steps:"0>1 is false → (0,0) is on the wrong side.",tip:"A failed test point defines the WRONG side. Shade the other."},
+{t:5,q:"Center/radius of (x−2)²+(y+1)²=9?",opts:["(2,−1), r=3","(−2,1), r=9","(2,1), r=3","(2,−1), r=9"],ans:0,latex:[["(x-2)^2+(y+1)^2=9"]],steps:"Center (2,−1), r=√9=3.",tip:"Flip signs: (x−2)→+2. Radius = √right-side."},
+{t:5,q:"Center/radius of x²+y²=25?",opts:["(0,0), r=5","(0,0), r=25","(5,5), r=5","(1,1), r=5"],ans:0,latex:[["x^2+y^2=25"]],steps:"No shifts → center origin. r=√25=5.",tip:"Missing (x−h) means h=0. r²=25 → r=5, never 25."},
+{t:5,q:"Center/radius of (x+4)²+(y−2)²=16?",opts:["(−4,2), r=4","(4,−2), r=16","(−4,2), r=16","(4,2), r=4"],ans:0,latex:[["(x+4)^2+(y-2)^2=16"]],steps:"(x+4)→h=−4, (y−2)→k=2. r=√16=4.",tip:"(x+4) means h=−4 (opposite). Say the flip out loud."},
+{t:5,q:"Radius of x²+y²=49?",opts:["7","49","3.5","14"],ans:0,latex:[["x^2+y^2=49"]],steps:"r²=49 → r=7.",tip:"Diameter would be 14 — they plant it as a trap. Read radius vs diameter."},
+{t:5,q:"Which point lies ON x²+y²=25?",opts:["(3,4)","(2,2)","(5,5)","(0,3)"],ans:0,latex:[["x^2+y^2=25"]],steps:"3²+4²=25 ✓. Others: 8, 50, 9.",tip:"ON = satisfies exactly. Plug each: squares sum to 25?"}];
+let curTopic=-1;
+function visibleIdx(){return EX.map((e,i)=>i).filter(i=>curTopic<0||EX[i].t===curTopic);}
 function loadPreset(ids){if(!calc){alert("Desmos still loading — type manually:\n"+ids.map(o=>o.latex).join("\n"));return;}calc.setBlank();ids.forEach(o=>{try{calc.setExpression({id:o.id||o.latex,latex:o.latex})}catch(e){}});document.getElementById("calculator").scrollIntoView({behavior:"smooth",block:"start"});}
 function setStatus(ok,msg){$("#calc-status").textContent=msg;$("#dot").classList.toggle("ok",!!ok);}
 function initCalc(){try{calc=Desmos.GraphingCalculator($("#calc"),{keypad:true,settingsMenu:true,expressionsTopbar:true,border:false});setStatus(true,"Desmos loaded — pick a preset below.");loadPreset([{id:"l1",latex:"y=2x+3"},{id:"l2",latex:"y=-x+5"}]);}catch(e){setStatus(false,"Desmos blocked — open desmos.com and type preset text.");}}
-function updateProg(){const n=EX.filter((_,i)=>document.querySelector(`input[name=ex${i}]:checked`)).length;$("#prog").style.width=(n/EX.length*100)+"%";}
+function updateProg(){const v=visibleIdx();const n=v.filter(i=>document.querySelector(`input[name=ex${i}]:checked`)).length;$("#prog").style.width=(v.length?n/v.length*100:0)+"%";}
+function renderEx(){const ex=$("#ex-list");ex.innerHTML="";visibleIdx().forEach((i,k)=>{const e=EX[i];const d=document.createElement("div");d.className="q";d.id="q"+i;d.innerHTML=`<b>Q${k+1}. ${e.q}</b><span class="qtag">${TOPICS[e.t]}</span><div class="opts">${e.opts.map((o,j)=>`<label class="opt"><input type="radio" name="ex${i}" value="${j}"><span>${o}</span></label>`).join("")}</div><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><button class="btn small ghost" data-des="${i}">Show Desmos steps</button><span class="sol" data-sol="${i}">${e.steps}</span></div><div class="tip" style="display:none" data-tip="${i}">💡 Tip: ${e.tip}</div>`;ex.appendChild(d);});
+document.querySelectorAll("[data-des]").forEach(b=>b.onclick=()=>{const i=+b.dataset.des;const s=document.querySelector(`[data-sol="${i}"]`);s.style.display="block";document.querySelector(`[data-tip="${i}"]`).style.display="block";loadPreset(EX[i].latex.map((l,k)=>({id:"ex"+i+"_"+k,latex:l[0]})));});
+document.querySelectorAll("input[type=radio]").forEach(r=>r.addEventListener("change",updateProg));updateProg();}
 window.addEventListener("load",()=>{setTimeout(()=>{window.Desmos?initCalc():setStatus(false,"Desmos failed — open desmos.com");},400);
 const PRESETS=[["System","y1 · y2"],["Quadratic","roots"],["Vertex","min value"],["Circle","center · r"],["Inequality","shade"],["Table test","A–D"]];
 const MAP={"System":[{id:"l1",latex:"y=-2x+7"},{id:"l2",latex:"y=x+1"}],"Quadratic":[{id:"q",latex:"y=x^2-5x+6"}],"Vertex":[{id:"v",latex:"y=x^2-4x+7"}],"Circle":[{id:"c",latex:"(x-2)^2+(y+1)^2=9"}],"Inequality":[{id:"i",latex:"y>2x+1"}],"Table test":[{id:"t",latex:"y=3x-5"}]};
 const pg=$("#presets");PRESETS.forEach(([l,s])=>{const b=document.createElement("button");b.className="preset-btn";b.innerHTML=`${l}<small>${s}</small>`;b.onclick=()=>loadPreset(MAP[l]);pg.appendChild(b);});
 $("#btn-blank").onclick=()=>calc&&calc.setBlank();
-const tg=$("#type-grid");TYPES.forEach(t=>{const d=document.createElement("div");d.className="card hover type-card";d.innerHTML=`<div class="type-top"><span class="icon">${t.icon}</span><h3 style="margin:0">${t.t}</h3><span style="flex:1"></span><span class="badge save">${t.save}</span></div><div><code>${t.ex}</code></div><p class="sub" style="margin:0">${t.why}<br><span style="color:#8fa0d8">${t.steps}</span></p>`;const b=document.createElement("button");b.className="btn small";b.textContent="▶ Try in calculator";b.onclick=()=>loadPreset(t.ids);d.appendChild(b);tg.appendChild(d);});
-const hg=$("#trick-grid");TRICKS.forEach(([a,b,c,cp],i)=>{const d=document.createElement("div");d.className="card hover";d.innerHTML=`<div class="trick-head"><span class="trick-num">${String(i+1).padStart(2,"0")}</span><b style="font-size:14px">${a}</b><button class="btn small ghost copybtn">Copy</button></div><p class="sub" style="margin:0">${b}<br><span style="color:#8fa0d8">Hand faster: ${c}</span><br><code>${cp}</code></p>`;d.querySelector(".copybtn").onclick=(e)=>{navigator.clipboard&&navigator.clipboard.writeText(cp);e.target.textContent="Copied ✓";setTimeout(()=>e.target.textContent="Copy",1200);};hg.appendChild(d);});
-const ex=$("#ex-list");EX.forEach((e,i)=>{const d=document.createElement("div");d.className="q";d.id="q"+i;d.innerHTML=`<b>Q${i+1}. ${e.q}</b><div class="opts">${e.opts.map((o,j)=>`<label class="opt"><input type="radio" name="ex${i}" value="${j}"><span>${o}</span></label>`).join("")}</div><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><button class="btn small ghost" data-des="${i}">Show Desmos steps</button><span class="sol" data-sol="${i}">${e.steps}</span></div>`;ex.appendChild(d);});
-document.querySelectorAll("[data-des]").forEach(b=>b.onclick=()=>{const i=+b.dataset.des;const s=document.querySelector(`[data-sol="${i}"]`);s.style.display="block";loadPreset(EX[i].latex.map((l,k)=>({id:"ex"+i+"_"+k,latex:l[0]})));});
-document.querySelectorAll("input[type=radio]").forEach(r=>r.addEventListener("change",updateProg));
-let t=null,sec=720;const T=$("#timer");
+const tg=$("#type-grid");TYPES.forEach((t,ti)=>{const d=document.createElement("div");d.className="card hover type-card";d.innerHTML=`<div class="type-top"><span class="icon">${t.icon}</span><h3 style="margin:0">${t.t}</h3><span style="flex:1"></span><span class="badge save">${t.save}</span></div><div><code>${t.ex}</code> <span class="badge lvl">${t.lvl}</span></div><p class="sub" style="margin:0">${t.why}</p><ol class="steps">${t.tutorial.map(s=>`<li>${s}</li>`).join("")}</ol><div class="trap">⚠️ ${t.trap}</div>`;const row=document.createElement("div");row.style.display="flex";row.style.gap="8px";const b=document.createElement("button");b.className="btn small";b.textContent="▶ Try in calculator";b.onclick=()=>loadPreset(t.ids);const b2=document.createElement("button");b2.className="btn small ghost";b2.textContent="5 questions ↓";b2.onclick=()=>{setTopic(ti);document.getElementById("exercise").scrollIntoView({behavior:"smooth"});};row.appendChild(b);row.appendChild(b2);d.appendChild(row);tg.appendChild(d);});
+const hg=$("#trick-grid");TRICKS.forEach(([a,b,c,cp,lvl],i)=>{const d=document.createElement("div");d.className="card hover";d.innerHTML=`<div class="trick-head"><span class="trick-num">${String(i+1).padStart(2,"0")}</span><b style="font-size:14px">${a}</b><button class="btn small ghost copybtn">Copy</button></div><p class="sub" style="margin:0"><span class="badge lvl">${lvl}</span></p><p class="sub" style="margin:6px 0 0">${b}<br><span style="color:#8fa0d8">Hand faster: ${c}</span><br><code>${cp}</code></p>`;d.querySelector(".copybtn").onclick=(e)=>{navigator.clipboard&&navigator.clipboard.writeText(cp);e.target.textContent="Copied ✓";setTimeout(()=>e.target.textContent="Copy",1200);};hg.appendChild(d);});
+const chips=$("#topic-chips");const mk=(label,ti)=>{const c=document.createElement("button");c.className="chip"+(ti===-1?" on":"");c.textContent=label;c.onclick=()=>setTopic(ti);c.dataset.ti=ti;chips.appendChild(c);};
+mk("All 30",-1);TOPICS.forEach((t,i)=>mk(`${t} (5)`,i));
+window.setTopic=function(ti){curTopic=ti;document.querySelectorAll("#topic-chips .chip").forEach(c=>c.classList.toggle("on",+c.dataset.ti===ti));$("#time-sel").value=ti<0?"2400":"480";resetTimer(ti<0?2400:480);renderEx();};
+renderEx();
+let t=null,sec=480;const T=$("#timer");
+function resetTimer(s){clearInterval(t);sec=s;T.textContent=`${String(Math.floor(sec/60)).padStart(2,"0")}:${String(sec%60).padStart(2,"0")}`;T.classList.remove("low");}
+$("#time-sel").onchange=e=>resetTimer(+e.target.value);
 $("#start-timer").onclick=()=>{clearInterval(t);t=setInterval(()=>{sec=Math.max(0,sec-1);T.textContent=`${String(Math.floor(sec/60)).padStart(2,"0")}:${String(sec%60).padStart(2,"0")}`;T.classList.toggle("low",sec<120&&sec>0);if(sec===0){clearInterval(t);$("#check-ex").click();}},1000);};
-$("#reset-ex").onclick=()=>{clearInterval(t);sec=720;T.textContent="12:00";T.classList.remove("low");$("#score").textContent="";document.querySelectorAll(".q").forEach(q=>q.classList.remove("correct","wrong"));document.querySelectorAll("input[type=radio]").forEach(r=>r.checked=false);updateProg();};
-$("#check-ex").onclick=()=>{let c=0;EX.forEach((e,i)=>{const sel=document.querySelector(`input[name=ex${i}]:checked`);const box=document.getElementById("q"+i);box.classList.remove("correct","wrong");if(sel&&+sel.value===e.ans){c++;box.classList.add("correct");}else box.classList.add("wrong");document.querySelector(`[data-sol="${i}"]`).style.display="block";});$("#score").textContent=`Score ${c}/6 ${c===6?"· 800 pace ✓":c>=4?"· hard-module ready":"· redo with Desmos steps"}`;updateProg();};
+$("#reset-ex").onclick=()=>{resetTimer(+$("#time-sel").value);$("#score").textContent="";renderEx();};
+$("#check-ex").onclick=()=>{let c=0,tot=0;const per=TOPICS.map(()=>({c:0,n:0}));visibleIdx().forEach(i=>{const e=EX[i];per[e.t].n++;tot++;const sel=document.querySelector(`input[name=ex${i}]:checked`);const box=document.getElementById("q"+i);box.classList.remove("correct","wrong");if(sel&&+sel.value===e.ans){c++;per[e.t].c++;box.classList.add("correct");}else box.classList.add("wrong");document.querySelector(`[data-sol="${i}"]`).style.display="block";document.querySelector(`[data-tip="${i}"]`).style.display="block";});const line=curTopic<0?per.map((p,i)=>`${TOPICS[i]} ${p.c}/${p.n}`).join(" · "):`${TOPICS[curTopic]}: ${per[curTopic].c}/${per[curTopic].n} ${per[curTopic].c===5?"fluent ✓":per[curTopic].c===4?"ready":"redo tutorial"}`;$("#score").textContent=`Score ${c}/${tot} — ${line}`;updateProg();};
 const links=[...document.querySelectorAll("#nav-links a")];const secs=links.map(a=>document.querySelector(a.getAttribute("href")));
 const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){links.forEach(a=>a.classList.toggle("active",a.getAttribute("href")==="#"+e.target.id));}});},{rootMargin:"-40% 0px -55% 0px"});secs.forEach(s=>s&&io.observe(s));
 });
